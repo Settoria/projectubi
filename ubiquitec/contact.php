@@ -4,30 +4,12 @@
 <?php
 include("islogged.inc.php");
 
-if (isset($_POST['submitted'])) {
-    if ($_POST['username']) {
-        $username = $_POST['username'];
-    } else {
-        $username = FALSE;
-        echo "<p>Please enter a valid Username</p>";
-    }
-    if ($_POST['password']) {
-        $password = $_POST['password'];
-    } else {
-        $password = FALSE;
-        echo "<p>Please enter a valid password</p>";
-    }
-    if ($_POST['password']) {
-        $password = $_POST['password'];
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-    }
-if ($_POST['password']) {
+if (is_null($_POST['password'])) {
     $password = $_POST['password'];
     $password = password_hash($password, PASSWORD_DEFAULT);
-}else if ($_POST["submitted"] && is_null($password)){
+}else if (is_null($_POST["submitted"]) && $_POST["submitted"] && is_null($password)){
     $password = FALSE;
     echo '<p> please enter a password</p>';
-}
 }
 include ('dbconnect.inc.php');
 ?>
@@ -151,7 +133,7 @@ include ('dbconnect.inc.php');
         $comment = false;
         echo '<p>Please enter your message! </p>';
     }
-   
+    include ('dbconnect.inc.php');
 
     $sql = "INSERT INTO contact (first_name, last_name, email, comment) VALUES('$first_name',
     '$last_name', '$email', '$comment')";
